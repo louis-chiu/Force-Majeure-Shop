@@ -15,7 +15,7 @@
   opacity: 0.8;
   z-index: 5;
 
-  .group-container {
+  .links-container {
     width: 40%;
     transition: var(--transition);
   }
@@ -26,13 +26,14 @@
     font-size: var(--fs-xxl);
     text-transform: uppercase;
     word-spacing: 10px;
+    text-shadow: 4px 4px 4px var(--primary-700);
   }
 
   &__toggle {
     display: none;
   }
 
-  &__group {
+  &__links {
     height: 100%;
     width: 100%;
     display: flex;
@@ -59,7 +60,7 @@
 }
 @media (max-width: 1440px) {
   .navbar {
-    .group-container {
+    .links-container {
       width: 50%;
     }
     &__logo {
@@ -73,7 +74,7 @@
     width: 100vw;
     padding: 0;
     flex-direction: column;
-    .group-container {
+    .links-container {
       width: 100%;
       overflow: hidden;
     }
@@ -101,7 +102,7 @@
         transform: rotateZ(90deg);
       }
     }
-    &__group {
+    &__links {
       height: fit-content;
       width: 100%;
       flex-direction: column;
