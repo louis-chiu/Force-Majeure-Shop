@@ -1,26 +1,20 @@
 export const navItems = [
   {
     id: 1,
-    name: 'News',
+    name: 'Shop',
     icons: '',
-    link: '#',
+    link: '/shop',
   },
   {
     id: 2,
-    name: 'Shop',
+    name: 'Cart',
     icons: '',
-    link: '#',
+    link: '/cart',
   },
   {
     id: 3,
-    name: 'Member',
+    name: 'Login',
     icons: '',
-    link: '#',
-  },
-  {
-    id: 4,
-    name: 'Cart',
-    icons: '',
-    link: '#',
+    link: '/login',
   },
 ];

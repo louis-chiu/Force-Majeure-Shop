@@ -2,31 +2,34 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 auto;
-  width: 90vw;
-  max-width: 1730px;
-  height: 5rem;
-  border-radius: 2px;
-  box-shadow: 1px 1px 10px 3px var(--primary-500);
 
   position: sticky;
   top: 0;
+  width: 90vw;
+  max-width: 1730px;
+  height: 5rem;
+  margin: 0 auto;
+
+  border-radius: 4px;
+  box-shadow: var(--box-shadow);
   background: var(--primary-100);
   opacity: 0.8;
-  z-index: 5;
+  z-index: 12;
 
   .links-container {
-    width: 40%;
-    transition: var(--transition);
+    width: 36%;
+
+    transition: var(--transition); /* mobile animate */
   }
   &__header {
-    padding: 0 1.5rem;
+    padding: 0 1.75rem;
   }
+
   &__logo {
     font-size: var(--fs-xxl);
     text-transform: uppercase;
-    word-spacing: 10px;
-    text-shadow: 4px 4px 4px var(--primary-700);
+    letter-spacing: 4px;
+    word-spacing: 12px;
   }
 
   &__toggle {
@@ -36,22 +39,26 @@
   &__links {
     height: 100%;
     width: 100%;
+
     display: flex;
     align-items: center;
     justify-content: space-around;
   }
+
   &__item {
     height: 5rem;
     width: 100%;
 
     a {
-      width: 100%;
       height: 100%;
+      font-size: var(--fs-l);
+
       display: flex;
       align-items: center;
       justify-content: center;
       &:hover {
         background: var(--primary-400);
+
         cursor: pointer;
         transition: var(--transition);
       }
@@ -61,25 +68,36 @@
 @media (max-width: 1440px) {
   .navbar {
     .links-container {
-      width: 50%;
+      width: 45%;
     }
     &__logo {
-      font-size: var(--fs-xl);
+      font-size: var(--fs-l);
+    }
+    &__item {
+      a {
+        font-size: var(--fs-m);
+      }
     }
   }
 }
 @media (max-width: 880px) {
   .navbar {
     height: fit-content;
-    width: 100vw;
-    padding: 0;
+    width: 100%;
     flex-direction: column;
+    box-shadow: none;
+
     .links-container {
       width: 100%;
       overflow: hidden;
+
+      position: absolute; /* mobile 會推擠到高度跑版 */
+      top: 5rem;
+      background: var(--primary-100);
+      opacity: 0.8;
     }
     &__header {
-      height: 4em;
+      height: 5em;
       width: 100%;
 
       display: flex;
@@ -91,11 +109,11 @@
     }
     &__toggle {
       display: inline-block;
-      font-size: var(--fs-xxl);
-      color: var(--primary-500);
+
+      font-size: var(--fs-xl);
       background: transparent;
       border-color: transparent;
-      text-shadow: 10px 10px 10px 1px var(--primary-500);
+
       transition: var(--transition);
       cursor: pointer;
       &:hover {
@@ -104,11 +122,10 @@
     }
     &__links {
       height: fit-content;
-      width: 100%;
       flex-direction: column;
     }
     &__item {
-      height: 3em;
+      height: 3rem;
     }
   }
 }

@@ -1,8 +1,10 @@
-import './style.css';
-import '../index.css';
 import { FaBars } from 'react-icons/fa';
 import { navItems } from '../data';
 import { useRef, useState } from 'react';
+
+import './Navbar.scss';
+import { Link } from 'react-router-dom';
+
 const Navbar = () => {
   const linksRef = useRef(null);
   const [showNavLinks, setShowNavLinks] = useState(false);
@@ -18,18 +20,35 @@ const Navbar = () => {
   return (
     <nav className='navbar'>
       <div className='navbar__header'>
-        <span className='navbar__logo'>Force Majeure</span>
-        <button className='navbar__toggle' onClick={toggleNavLinks}>
+        <Link
+          to='/'
+          className='navbar__logo'
+        >
+          Force Majeure
+        </Link>
+        <button
+          className='navbar__toggle'
+          onClick={toggleNavLinks}
+        >
           <FaBars />
         </button>
       </div>
-      <div className='links-container' style={showStyle}>
-        <ul className='navbar__links' ref={linksRef}>
+      <div
+        className='links-container'
+        style={showStyle}
+      >
+        <ul
+          className='navbar__links'
+          ref={linksRef}
+        >
           {navItems.map((item, i) => {
             const { name, id, link, icon } = item;
             return (
-              <li className='navbar__item' key={id}>
-                <a href={link}>{name}</a>
+              <li
+                className='navbar__item'
+                key={id}
+              >
+                <Link to={link}>{name}</Link>
               </li>
             );
           })}
