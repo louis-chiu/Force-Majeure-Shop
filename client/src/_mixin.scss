@@ -1,0 +1,47 @@
+@mixin btn {
+  width: 12rem;
+  height: 4rem;
+  border-radius: 2rem;
+  font-size: var(--fs-m);
+  color: var(--primary-100);
+  background: var(--primary-600);
+  box-shadow: 0 4px 8px 0px var(--primary-800);
+  &:hover {
+    cursor: pointer;
+    background: var(--primary-700);
+  }
+  &:active {
+    box-shadow: 0 4px 4px 0px var(--primary-800);
+    transform: translateY(2px);
+  }
+}
+@mixin controller {
+  color: var(--primary-600);
+  font-size: 48px;
+  &:hover {
+    cursor: pointer;
+    transform: scale(110%);
+    transition: transform 0.1s ease-in;
+  }
+}
+@mixin circle {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: #000;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@mixin social-media {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.btn {
+  @include btn;
+}
+.circle {
+  @include circle;
+}

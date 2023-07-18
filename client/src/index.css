@@ -4,7 +4,7 @@
   box-sizing: border-box;
   text-decoration: none;
   list-style: none;
-  font-family: 'Libre Baskerville', 'Noto Sans TC', serif;
+  font-family: var(--font-family);
 
   font-weight: normal;
 }
@@ -29,6 +29,7 @@ button {
   border: transparent;
 }
 :root {
+  --font-family: 'Libre Baskerville', 'Noto Sans TC', serif;
   --primary-100: #f8f9fa;
   --primary-200: #e9ecef;
   --primary-300: #dee2e6;
@@ -38,6 +39,7 @@ button {
   --primary-700: #495057;
   --primary-800: #343a40;
   --primary-900: #212529;
+  --primary-opacity: rgba(248, 249, 250, 0.2);
 
   --fs-xxl: 1.75rem;
   --fs-xl: 1.5rem;
@@ -47,8 +49,7 @@ button {
   --fs-xs: 0.5rem;
 
   --transition: 0.25s ease-in-out;
-  --box-shadow: 0px 0px 12px 4px var(--primary-600);
-
+  --box-shadow: 0 0 12px 0 var(--primary-600);
   scroll-behavior: smooth;
   /
   /* width */
