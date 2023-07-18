@@ -1,13 +1,16 @@
 import ProductCard from '../components/ProductCard';
 import SearchBar from '../components/SearchBar';
 import SortBar from '../components/SortBar';
-import { useGetProductByIdQuery } from '../services/product';
+import {
+  useGetProductByIdQuery,
+  useGetProductsQuery,
+} from '../services/product';
 import './Shop.scss';
 import { BiSolidLeftArrow, BiSolidRightArrow } from 'react-icons/bi';
 
 const Shop = () => {
-  const { data, error, isLoading } = useGetProductByIdQuery(1);
-  console.log(data);
+  const { data: products, error, isLoading } = useGetProductsQuery();
+  console.log(products);
   return (
     <div className='shop'>
       <section className='banner'>
@@ -40,18 +43,19 @@ const Shop = () => {
           <SortBar />
           <div className='filter-bar__center'>
             <hr className='filter-bar__hr' />
-            <p className='filter-bar__found-items'># Products Found</p>
+            <p className='filter-bar__found-items'>
+              {products?.length} Products Found
+            </p>
             <hr className='filter-bar__hr' />
           </div>
           <SearchBar />
         </div>
         <div className='products'>
-          {}
-          <ProductCard />
+          {products?.map((product) => (
+            <ProductCard {...product} />
+          ))}
         </div>
       </section>
-      <button className='btn'>Button</button>
-      <div className='circle'></div>
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import './App.scss';
 import Navbar from './components/Navbar';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from './pages';
@@ -9,7 +8,8 @@ import Shop from './pages/Shop';
 import Login from './pages/Login';
 import SingleProduct from './pages/SingleProduct';
 import ProductForm from './components/ProductForm';
-
+import { store } from './store';
+import { Provider } from 'react-redux';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -47,9 +47,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return <RouterProvider router={router} />;
+  return (
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  );
 }
 
 export default App;

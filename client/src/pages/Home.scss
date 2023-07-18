@@ -1,12 +1,10 @@
 .home {
-  height: calc(300vh - 12rem);
+  height: calc(300vh - 5rem);
 }
-
 .heros {
   height: 100vh;
   width: 100%;
-  position: relative;
-  top: -5rem;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,6 +12,7 @@
     background: url('../assets/banner1.jpg');
     background-size: cover;
     background-position: center;
+    margin-top: -5rem;
   }
   &:nth-child(2) {
     background: url('../assets/banner2.jpg');

@@ -1,11 +1,10 @@
 * {
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
   text-decoration: none;
   list-style: none;
   font-family: var(--font-family);
-
+  padding: 0;
+  margin: 0;
   font-weight: normal;
 }
 h1,
@@ -28,6 +27,7 @@ a:hover {
 button {
   border: transparent;
 }
+
 :root {
   --font-family: 'Libre Baskerville', 'Noto Sans TC', serif;
   --primary-100: #f8f9fa;
@@ -51,7 +51,11 @@ button {
   --transition: 0.25s ease-in-out;
   --box-shadow: 0 0 12px 0 var(--primary-600);
   scroll-behavior: smooth;
-  /
+
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  height: 1080px;
   /* width */
   ::-webkit-scrollbar {
     width: 10px;

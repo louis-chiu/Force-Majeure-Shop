@@ -1,18 +1,33 @@
 import { BsStarFill, BsStar, BsStarHalf } from 'react-icons/bs';
-
-const ProductCard = () => {
+import './ProductCard.scss';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
+const ProductCard = ({ id, name, image, price }) => {
+  console.log(name);
   return (
-    <div className='product'>
-      <img
-        src=''
-        alt=''
-      />
-      <p>name</p>
-      <p>price</p>
-      <div className='rating'>
-        <BsStarFill />
+    <Link
+      to={`product/${id}`}
+      className='product-card'
+    >
+      <div className='product-card__image-container'>
+        <img
+          src={image?.[0]}
+          alt={name}
+          className='product-card__image'
+        />
       </div>
-    </div>
+      <p className='product-card__name'>{name}</p>
+      <div className='product-card__detail'>
+        <p className='product-card__price'>$ {price}</p>
+        <div className='product-card__rating'>
+          <BsStarFill />
+          <BsStarFill />
+          <BsStarFill />
+          <BsStarFill />
+          <BsStarFill />
+        </div>
+      </div>
+    </Link>
   );
 };
 export default ProductCard;
