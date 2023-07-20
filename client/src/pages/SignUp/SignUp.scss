@@ -1,0 +1,61 @@
+@import '../../mixin';
+.sign-up {
+  height: calc(100vh - 5rem);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &-form {
+    width: 480px;
+    height: 600px;
+    padding-right: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    box-shadow: var(--box-shadow);
+    border-radius: 1rem;
+    backdrop-filter: blur(5px);
+    &__title {
+      font-size: var(--fs-xxl);
+    }
+    &__button-group {
+      width: 70%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    &__sign-up {
+      @include btn;
+      height: 3rem;
+      width: 12rem;
+    }
+    &__login {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 3rem;
+      width: 12rem;
+    }
+  }
+}
+@media (max-width: 880px) {
+  .sign-up {
+    &-form {
+      width: 100%;
+
+      border-radius: 0;
+      &__button-group {
+        justify-content: space-evenly;
+      }
+      .input-bar {
+        &__label {
+          width: 6rem;
+          font-size: var(--fs-m);
+        }
+      }
+    }
+  }
+}
