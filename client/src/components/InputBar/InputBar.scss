@@ -1,0 +1,33 @@
+.input-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 90%;
+  &__label {
+    height: fit-content;
+
+    color: var(--primary-800);
+    text-align: end;
+    font-size: var(--fs-l);
+    width: 8.5rem;
+  }
+  &__input {
+    height: 2.5rem;
+    width: 60%;
+    border-radius: 1.25rem;
+
+    border: none;
+    background: var(--primary-100);
+    color: var(--primary-800);
+    padding: 0 1.25rem;
+    font-size: var(--fs-m);
+
+    box-shadow: 0 2px 2px 1px var(--primary-600);
+    &:focus {
+      border: none;
+      outline: none;
+      box-shadow: 0 2px 2px 1px var(--primary-800);
+    }
+  }
+}
