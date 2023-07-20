@@ -1,0 +1,35 @@
+@import '../mixin';
+
+.error {
+  height: calc(100vh - 5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  &__icon {
+    color: var(--primary-800);
+    font-size: 12rem;
+    animation-name: error-shake;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: 3;
+  }
+  &__title {
+    font-size: 4rem;
+  }
+  &__content {
+    font-size: var(--fs-xxl);
+  }
+  &__btn {
+    @include btn;
+  }
+}
+@keyframes error-shake {
+  25% {
+    transform: rotate3d(0, 0, 1, 15deg);
+  }
+  75% {
+    transform: rotate3d(0, 0, -1, 15deg);
+  }
+}

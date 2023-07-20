@@ -1,0 +1,26 @@
+.loading {
+  height: calc(100vh - 5rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__icon {
+    border-radius: 50%;
+    width: 16rem;
+    height: 16rem;
+    font-size: 16rem;
+
+    color: var(--primary-800);
+    animation-name: rotate;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+}
+@keyframes rotate {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
