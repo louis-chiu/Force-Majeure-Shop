@@ -16,7 +16,7 @@ const pool = new Pool({
 });
 
 const corsOptions = {
-  origin: 'http://chiu.hopto.org',
+  origin: ['http://localhost:5173', 'http://chiu.hopto.org:5173'],
 };
 app.use(express.json());
 app.use(cors(corsOptions));
@@ -37,7 +37,7 @@ const colorMap = [
   { name: 'Light Blue', hex: '#ADD8E6' },
 ];
 
-app.get('/api/clothes', async (req, res) => {
+app.get('/api/products', async (req, res) => {
   try {
     const client = await pool.connect();
 
@@ -72,8 +72,8 @@ app.get('/api/clothes', async (req, res) => {
 
     const result = await client.query(query, params);
     client.release();
-    const clothes = result.rows.map((cloth) => {
-      const colors = cloth.color.map((colorName) => {
+    const products = result.rows.map((product) => {
+      const colors = product.color.map((colorName) => {
         const color = colorMap.find((c) => c.name === colorName);
         return {
           name: colorName,
@@ -82,30 +82,30 @@ app.get('/api/clothes', async (req, res) => {
       });
 
       return {
-        id: cloth.id,
-        name: cloth.name,
-        price: cloth.price,
-        image: cloth.image,
-        size: cloth.size,
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        size: product.size,
         color: colors,
-        description: cloth.description,
-        stock: cloth.stock,
+        description: product.description,
+        stock: product.stock,
       };
     });
 
-    res.json(clothes);
+    res.json(products);
   } catch (error) {
     console.error('Error executing SQL query', error);
     res.status(500).json({ error: 'An error occurred' });
   }
 });
 
-app.get('/api/clothes/:id', async (req, res) => {
+app.get('/api/products/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const client = await pool.connect();
 
-    // 執行 SQL 查詢取得特定 clothes 資料
+    // 執行 SQL 查詢取得特定 products 資料
     const result = await client.query(
       `
       SELECT
@@ -136,12 +136,12 @@ app.get('/api/clothes/:id', async (req, res) => {
     client.release();
 
     if (result.rows.length === 0) {
-      res.status(404).json({ error: 'Cloth not found' });
+      res.status(404).json({ error: 'Product not found' });
       return;
     }
 
-    const cloth = result.rows[0];
-    const colors = cloth.color.map((colorName) => {
+    const product = result.rows[0];
+    const colors = product.color.map((colorName) => {
       const color = colorMap.find((c) => c.name === colorName);
       return {
         name: colorName,
@@ -149,18 +149,18 @@ app.get('/api/clothes/:id', async (req, res) => {
       };
     });
 
-    const clothDetails = {
-      id: cloth.id,
-      name: cloth.name,
-      price: cloth.price,
-      image: cloth.image,
-      size: cloth.size,
+    const productDetails = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      size: product.size,
       color: colors,
-      description: cloth.description,
-      stock: cloth.stock,
+      description: product.description,
+      stock: product.stock,
     };
 
-    res.json(clothDetails);
+    res.json(productDetails);
   } catch (error) {
     console.error('Error executing SQL query', error);
     res.status(500).json({ error: 'An error occurred' });

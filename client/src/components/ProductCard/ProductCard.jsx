@@ -3,10 +3,9 @@ import './ProductCard.scss';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 const ProductCard = ({ id, name, image, price }) => {
-  console.log(name);
   return (
     <Link
-      to={`product/${id}`}
+      to={`/product/${id}`}
       className='product-card'
     >
       <div className='product-card__image-container'>

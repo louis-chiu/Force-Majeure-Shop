@@ -15,10 +15,10 @@
     cursor: pointer;
   }
   &:active {
-    animation-name: flip;
+    animation-name: card-shake;
     animation-duration: 0.2s;
   }
-  @keyframes flip {
+  @keyframes card-shake {
     33% {
       transform: rotate3d(0, 0, 1, 3deg);
     }

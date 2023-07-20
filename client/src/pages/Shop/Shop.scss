@@ -1,8 +1,5 @@
-@import '../mixin';
+@import '../../mixin';
 .shop {
-  background: url('../assets/background.jpg');
-  background-size: cover;
-  width: 100%;
   .banner {
     width: 100%;
     height: 100vh;
@@ -34,17 +31,17 @@
         align-items: center;
         justify-content: center;
         &:nth-of-type(1) {
-          background: url('../assets/banner1.jpg');
+          background: url('../../assets/banner1.jpg');
           background-size: cover;
           background-position: center;
         }
         &:nth-of-type(2) {
-          background: url('../assets/banner2.jpg');
+          background: url('../../assets/banner2.jpg');
           background-size: cover;
           background-position: center;
         }
         &:nth-of-type(3) {
-          background: url('../assets/banner3.jpg');
+          background: url('../../assets/banner3.jpg');
           background-size: cover;
           background-position: center;
         }
@@ -70,8 +67,10 @@
     }
   }
   .product-list-container {
+    max-width: 1680px;
+
     width: 85%;
-    padding: 4rem 0;
+    padding: 4rem 0 8rem 0;
 
     backdrop-filter: blur(5px);
     background: var(--primary-opacity);
@@ -108,7 +107,7 @@
     margin: 2rem auto;
     display: flex;
     flex-wrap: wrap;
-    gap: 4rem;
+    gap: 5rem;
     align-items: space-between;
     justify-content: space-evenly;
   }
@@ -263,9 +262,4 @@
     opacity: 0;
     transform: scale(100%);
   }
-}
-
-@import '../_mixin.scss';
-.btn {
-  @include btn;
 }

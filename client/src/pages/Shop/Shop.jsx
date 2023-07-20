@@ -1,16 +1,20 @@
-import ProductCard from '../components/ProductCard';
-import SearchBar from '../components/SearchBar';
-import SortBar from '../components/SortBar';
+import ProductCard from '../../components/ProductCard/ProductCard';
+import SearchBar from '../../components/SearchBar/SearchBar';
+import SortBar from '../../components/SortBar/SortBar';
 import {
   useGetProductByIdQuery,
   useGetProductsQuery,
-} from '../services/product';
+} from '../../services/product';
 import './Shop.scss';
 import { BiSolidLeftArrow, BiSolidRightArrow } from 'react-icons/bi';
+import Error from '../Error/Error';
+import Loading from '../Loading/Loading';
 
 const Shop = () => {
-  const { data: products, error, isLoading } = useGetProductsQuery();
-  console.log(products);
+  const { data: products, isError, isLoading } = useGetProductsQuery();
+  if (isError) return <Error />;
+  if (isLoading) return <Loading />;
+
   return (
     <div className='shop'>
       <section className='banner'>

@@ -1,13 +1,11 @@
 import { useState } from 'react';
-import Navbar from './components/Navbar';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from './pages';
-import Home from './pages/Home';
-import Cart from './pages/Cart';
-import Shop from './pages/Shop';
-import Login from './pages/Login';
-import SingleProduct from './pages/SingleProduct';
-import ProductForm from './components/ProductForm';
+import Home from './pages/Home/Home';
+import Cart from './pages/Cart/Cart';
+import Shop from './pages/Shop/Shop';
+import Login from './pages/Login/Login';
+import SingleProduct from './pages/SingleProduct/SingleProduct';
 import { store } from './store';
 import { Provider } from 'react-redux';
 const router = createBrowserRouter([
@@ -34,13 +32,6 @@ const router = createBrowserRouter([
       {
         path: 'product/:id',
         element: <SingleProduct />,
-        children: [
-          {
-            path: 'buy',
-            element: <ProductForm />,
-            action: () => {},
-          },
-        ],
       },
     ],
   },

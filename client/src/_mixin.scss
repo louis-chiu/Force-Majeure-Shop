@@ -1,5 +1,5 @@
 @mixin btn {
-  width: 12rem;
+  width: 14rem;
   height: 4rem;
   border-radius: 2rem;
   font-size: var(--fs-m);
@@ -18,6 +18,13 @@
     box-shadow: 0 4px 4px 0px var(--primary-800);
     transform: translateY(2px);
   }
+  @media (max-width: 1480px) {
+    width: 12rem;
+  }
+  @media (max-width: 880px) {
+    width: 7.5rem;
+    height: 2.5rem;
+  }
 }
 @mixin controller {
   color: var(--primary-600);
@@ -29,13 +36,19 @@
   }
 }
 @mixin circle {
-  display: block;
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  background: #000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &:hover {
     cursor: pointer;
+  }
+  @media (max-width: 880px) {
+    height: 2.5rem;
+    width: 2.5rem;
   }
 }
 

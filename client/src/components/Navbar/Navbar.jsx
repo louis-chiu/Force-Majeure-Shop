@@ -1,5 +1,5 @@
 import { FaBars } from 'react-icons/fa';
-import { navItems } from '../data';
+import { navItems } from '../../data';
 import { useRef, useState } from 'react';
 
 import './Navbar.scss';
@@ -15,7 +15,6 @@ const Navbar = () => {
   };
   const toggleNavLinks = (e) => {
     setShowNavLinks(!showNavLinks);
-    console.log(showStyle);
   };
   return (
     <nav className='navbar'>

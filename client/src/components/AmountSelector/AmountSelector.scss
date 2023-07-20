@@ -1,4 +1,4 @@
-@import '../mixin';
+@import '../../mixin';
 .amount-selector {
   display: block;
   width: 12rem;
@@ -14,7 +14,7 @@
   &__amount {
     font-size: var(--fs-xl);
     color: var(--primary-100);
-    text-shadow: 4px 4px 2px var(--primary-800);
+    text-shadow: 2px 2px 2px var(--primary-800);
   }
   &__btn {
     @include circle;
@@ -33,6 +33,24 @@
       background: var(--primary-200);
       transform: translateY(2px);
       box-shadow: 0 2px 2px 1px var(--primary-700);
+    }
+  }
+  @media (max-width: 1120px) {
+    width: 10rem;
+    &__btn {
+      height: 2rem;
+      width: 2rem;
+    }
+  }
+
+  @media (max-width: 880px) {
+    width: 7rem;
+    &__btn {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+    &__amount {
+      font-size: var(--fs-l);
     }
   }
 }
