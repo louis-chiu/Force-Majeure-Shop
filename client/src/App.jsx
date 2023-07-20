@@ -8,6 +8,7 @@ import Login from './pages/Login/Login';
 import SingleProduct from './pages/SingleProduct/SingleProduct';
 import { store } from './store';
 import { Provider } from 'react-redux';
+import SignUp from './pages/SignUp/SignUp';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <Login />,
+      },
+      {
+        path: 'signup',
+        element: <SignUp />,
       },
       {
         path: 'product/:id',
