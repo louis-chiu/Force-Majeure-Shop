@@ -6,6 +6,10 @@
   color: var(--primary-100);
   background: var(--primary-600);
   box-shadow: 0 4px 8px 0px var(--primary-800);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &:hover {
     cursor: pointer;
     background: var(--primary-700);
@@ -25,6 +29,7 @@
   }
 }
 @mixin circle {
+  display: block;
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
