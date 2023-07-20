@@ -7,6 +7,32 @@
   margin: 0;
   font-weight: normal;
 }
+button,
+input,
+optgroup,
+select,
+textarea,
+html input[type='button'],
+input[type='reset'],
+input[type='submit'],
+button[disabled],
+html input[disabled],
+button::-moz-focus-inner,
+input::-moz-focus-inner,
+input[type='checkbox'],
+input[type='radio'],
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button,
+input[type='search'],
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-decoration {
+  border: none;
+  background-image: none;
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
 h1,
 h2,
 h3,
@@ -28,6 +54,10 @@ button {
   border: transparent;
 }
 
+html {
+  background: url('./assets/background.jpg');
+  height: fit-content !important;
+}
 :root {
   --font-family: 'Libre Baskerville', 'Noto Sans TC', serif;
   --primary-100: #f8f9fa;
@@ -40,6 +70,8 @@ button {
   --primary-800: #343a40;
   --primary-900: #212529;
   --primary-opacity: rgba(248, 249, 250, 0.2);
+  --primary-opacity-50: rgba(248, 249, 250, 0.5);
+  --primary-opacity-500: rgb(173, 181, 189, 0.7);
 
   --fs-xxl: 1.75rem;
   --fs-xl: 1.5rem;
@@ -55,7 +87,7 @@ button {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  height: 1080px;
+  height: 100vh;
   /* width */
   ::-webkit-scrollbar {
     width: 10px;
