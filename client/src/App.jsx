@@ -4,11 +4,12 @@ import { Layout } from './pages';
 import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
 import Shop from './pages/Shop/Shop';
-import Login from './pages/Login/Login';
+import Login, { action as loginAction } from './pages/Login/Login';
 import SingleProduct from './pages/SingleProduct/SingleProduct';
 import { store } from './store';
 import { Provider } from 'react-redux';
-import SignUp from './pages/SignUp/SignUp';
+import SignUp, { action as signUpAction } from './pages/SignUp/SignUp';
+import Member from './pages/Member/Member';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -29,11 +30,18 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <Login />,
+        action: loginAction,
       },
       {
         path: 'signup',
         element: <SignUp />,
+        action: signUpAction,
       },
+      {
+        path: 'member',
+        element: <Member />,
+      },
+
       {
         path: 'product/:id',
         element: <SingleProduct />,
