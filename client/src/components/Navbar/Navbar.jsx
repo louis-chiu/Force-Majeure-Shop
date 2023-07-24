@@ -4,8 +4,12 @@ import { useRef, useState } from 'react';
 
 import './Navbar.scss';
 import { Link } from 'react-router-dom';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../features/user/userSlice';
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const { isLogin } = useSelector((state) => state.user);
+  console.log(isLogin);
   const linksRef = useRef(null);
   const [showNavLinks, setShowNavLinks] = useState(false);
   const showStyle = {
@@ -16,6 +20,7 @@ const Navbar = () => {
   const toggleNavLinks = (e) => {
     setShowNavLinks(!showNavLinks);
   };
+
   return (
     <nav className='navbar'>
       <div className='navbar__header'>
@@ -40,17 +45,43 @@ const Navbar = () => {
           className='navbar__links'
           ref={linksRef}
         >
-          {navItems.map((item, i) => {
-            const { name, id, link, icon } = item;
-            return (
-              <li
-                className='navbar__item'
-                key={id}
+          <li className='navbar__item'>
+            <Link
+              className='navbar__button'
+              to='/shop'
+              onClick={toggleNavLinks}
+            >
+              Shop
+            </Link>
+          </li>
+          <li className='navbar__item'>
+            <Link
+              className='navbar__button'
+              to='/cart'
+              onClick={toggleNavLinks}
+            >
+              Cart
+            </Link>
+          </li>
+          <li className='navbar__item'>
+            {isLogin ? (
+              <button
+                className='navbar__button'
+                onClick={() => dispatch(logout())}
+                to='/'
               >
-                <Link to={link}>{name}</Link>
-              </li>
-            );
-          })}
+                Logout
+              </button>
+            ) : (
+              <Link
+                className='navbar__button'
+                to='/login'
+                onClick={toggleNavLinks}
+              >
+                Login
+              </Link>
+            )}
+          </li>
         </ul>
       </div>
     </nav>
