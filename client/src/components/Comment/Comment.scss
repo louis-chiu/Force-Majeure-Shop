@@ -1,0 +1,143 @@
+@import '../../mixin';
+.comment {
+  height: 8rem;
+  width: 100%;
+
+  background: white;
+  padding: 0 1rem;
+  border-radius: 1rem;
+  font-size: var(--fs-m);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__avatar {
+    width: 72px;
+    &-container {
+      width: 72px;
+      height: 72px;
+
+      border-radius: 50%;
+      overflow: hidden;
+    }
+  }
+
+  &-body {
+    height: 70%;
+
+    margin: 0 1rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+  }
+  &__user {
+    &name {
+    }
+    &-container {
+      height: 50%;
+      width: 12rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  &__content {
+    height: 3rem;
+    display: flex;
+    align-items: center;
+  }
+}
+.order-detail {
+  width: 12rem;
+  height: 80%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  &__color {
+    @include circle;
+    width: 1.75rem !important;
+    height: 1.75rem !important;
+    outline: 0.2px solid var(--primary-800);
+  }
+  &__size {
+    height: 1.75rem;
+    width: 4.5rem;
+
+    font-size: var(--fs-s);
+    color: var(--primary-100);
+    background: var(--primary-500);
+    border-radius: 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 1120px) {
+  .comment {
+    &__avatar {
+      width: 60px;
+      &-container {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+    &-body {
+    }
+    &__user {
+      &name {
+      }
+      &-container {
+        width: 8rem;
+      }
+    }
+    &__content {
+    }
+  }
+  .order-detail {
+    width: 10rem;
+    &__color {
+    }
+    &__size {
+      width: 1.75rem;
+    }
+  }
+}
+@media (max-width: 840px) {
+  .comment {
+    margin: 0;
+    font-size: var(--fs-s);
+    &__avatar {
+      width: 40px;
+      &-container {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    &-body {
+      width: 8rem;
+    }
+  }
+  .order-detail {
+    width: 4rem;
+
+    flex-direction: column;
+    &__color {
+      height: 1.5rem !important;
+      width: 1.5rem !important;
+    }
+    &__size {
+      font-size: var(--fs-xs);
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+  }
+}
