@@ -8,7 +8,6 @@ const Slider = ({ imageList, name }) => {
     <div className='slider'>
       <ul className='slider__image-list'>
         {imageList?.map((image) => {
-          console.log(image + '!!!');
           return (
             <li key={nanoid()}>
               <img

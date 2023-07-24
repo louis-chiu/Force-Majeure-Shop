@@ -59,8 +59,8 @@ const ProductForm = ({
             ></AmountSelector>
             <p className='product-detail__total-price'>$ {price}</p>
           </div>
-          <p className='product-detail__stock'>
-            {stock < 40 && `only ${stock} lefts in stocks!`}
+          <p className={stock < 10 && `product-detail__stock`}>
+            {stock < 10 && `only ${stock} lefts in stocks!`}
           </p>
           <div className='product-detail__button-group'>
             <div className='product-detail__buy'>Buy Now</div>

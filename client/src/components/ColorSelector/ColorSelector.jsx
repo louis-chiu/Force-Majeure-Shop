@@ -1,6 +1,5 @@
 import './ColorSelector.scss';
 const ColorSelector = ({ colorList }) => {
-  console.log(colorList);
   return (
     <div className='color-selector'>
       {colorList?.map(({ name, hex }) => {

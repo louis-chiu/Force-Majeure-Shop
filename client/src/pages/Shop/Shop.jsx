@@ -4,7 +4,7 @@ import SortBar from '../../components/SortBar/SortBar';
 import {
   useGetProductByIdQuery,
   useGetProductsQuery,
-} from '../../services/product';
+} from '../../features/product/productSlice';
 import './Shop.scss';
 import { BiSolidLeftArrow, BiSolidRightArrow } from 'react-icons/bi';
 import Error from '../Error/Error';
@@ -14,7 +14,6 @@ const Shop = () => {
   const { data: products, isError, isLoading } = useGetProductsQuery();
   if (isError) return <Error />;
   if (isLoading) return <Loading />;
-
   return (
     <div className='shop'>
       <section className='banner'>
@@ -56,7 +55,10 @@ const Shop = () => {
         </div>
         <div className='products'>
           {products?.map((product) => (
-            <ProductCard {...product} />
+            <ProductCard
+              key={product.id}
+              {...product}
+            />
           ))}
         </div>
       </section>

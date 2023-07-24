@@ -4,13 +4,14 @@ import { Outlet, useLocation } from 'react-router-dom';
 import './Layout.scss';
 const Layout = () => {
   const { pathname } = useLocation();
-  const memberPath = ['/login', '/signup'];
-  const isMemberPath = !memberPath.includes(pathname);
+  const withoutFooterPath = ['/', '/login', '/signup'];
+  const isWithoutFooterPath = !withoutFooterPath.includes(pathname);
+
   return (
     <div className='layout-container'>
       <Navbar />
       <Outlet />
-      {isMemberPath && <Footer />}
+      {isWithoutFooterPath && <Footer />}
     </div>
   );
 };

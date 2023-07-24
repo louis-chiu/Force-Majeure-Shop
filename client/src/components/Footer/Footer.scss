@@ -2,10 +2,6 @@ footer {
   max-width: 1730px;
   width: 90%;
 
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
   border-radius: 8px;
   margin: 0 auto;
   padding: 1.5rem 4rem;
@@ -15,6 +11,7 @@ footer {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 8px;
+  z-index: 5;
   .links {
     height: 100%;
     width: 20%;
