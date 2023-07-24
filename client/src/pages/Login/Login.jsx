@@ -1,19 +1,46 @@
 import './Login.scss';
-import { Link } from 'react-router-dom';
+import { Form, Link, redirect, useActionData } from 'react-router-dom';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import InputBar from '../../components/InputBar/InputBar';
+import { useLoginMutation } from '../../features/user/userSlice';
+import Loading from '../Loading/Loading';
+import Error from '../Error/Error';
+import { store } from '../../store';
+import {
+  login,
+  extendedApiSlice as userApi,
+} from '../../features/user/userSlice';
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const credentials = Object.fromEntries(formData);
+  const promise = store.dispatch(userApi.endpoints.login.initiate(credentials));
+  try {
+    const credentials = await promise.unwrap();
+    store.dispatch(login(credentials));
+
+    return redirect('/member');
+  } catch (error) {
+    return redirect('/login');
+  } finally {
+    promise.unsubscribe();
+  }
+};
 const Login = () => {
+  // const { data: user, isLoading, isError } = useLoginMutation();
+  // if (isLoading) return <Loading />;
+  // if (isError) return <Error />;
   return (
     <div className='login'>
-      <form
-        action=''
+      <Form
         className='login-form'
+        method='POST'
       >
         <h3 className='login-form__title'>Login</h3>
         <InputBar
           type='email'
-          name='account'
+          name='email'
         >
           <BsFillPersonFill />
         </InputBar>
@@ -37,7 +64,7 @@ const Login = () => {
             Login
           </button>
         </div>
-      </form>
+      </Form>
       <div className='quick-login'></div>
     </div>
   );

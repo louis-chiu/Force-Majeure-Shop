@@ -1,19 +1,40 @@
 import './SignUp.scss';
-import { Link } from 'react-router-dom';
+import { Form, Link, redirect } from 'react-router-dom';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import InputBar from '../../components/InputBar/InputBar';
+import { store } from '../../store';
+import {
+  login,
+  extendedApiSlice as userApi,
+} from '../../features/user/userSlice';
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const user = Object.fromEntries(formData);
+  const promise = store.dispatch(userApi.endpoints.register.initiate(user));
+  try {
+    const response = await promise.unwrap();
+    store.dispatch(login({ email: user.email, password: user.password }));
+    return redirect('/member');
+  } catch (error) {
+    return redirect('/signup');
+  } finally {
+    promise.unsubscribe();
+  }
+};
+
 const SignUp = () => {
   return (
     <div className='sign-up'>
-      <form
-        action=''
+      <Form
+        method='POST'
         className='sign-up-form'
       >
         <h3 className='sign-up-form__title'>Sign Up</h3>
         <InputBar
           type='email'
-          name='account'
+          name='email'
         >
           Email
         </InputBar>
@@ -61,7 +82,7 @@ const SignUp = () => {
             Sign Up
           </button>
         </div>
-      </form>
+      </Form>
       <div className='quick-sign-up'></div>
     </div>
   );

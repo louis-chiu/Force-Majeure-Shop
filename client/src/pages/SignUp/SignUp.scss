@@ -45,8 +45,23 @@
   .sign-up {
     &-form {
       width: 100%;
+      font-size: var(--fs-s);
 
       border-radius: 0;
+      .input-bar {
+        &__label {
+          font-size: var(--fs-m) !important;
+        }
+        &__input {
+          font-size: var(--fs-s);
+        }
+      }
+      &__title {
+        font-size: var(--fs-l);
+      }
+      &__sign-up {
+        font-size: var(--fs-s);
+      }
       &__button-group {
         justify-content: space-evenly;
       }

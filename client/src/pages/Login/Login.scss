@@ -44,9 +44,24 @@
 @media (max-width: 880px) {
   .login {
     &-form {
+      font-size: var(--fs-s);
       width: 100%;
 
       border-radius: 0;
+      .input-bar {
+        &__input {
+          font-size: var(--fs-s);
+        }
+        &__label {
+          font-size: var(--fs-xxl) !important;
+        }
+      }
+      &__title {
+        font-size: var(--fs-l);
+      }
+      &__login {
+        font-size: var(--fs-s);
+      }
       &__button-group {
         justify-content: space-evenly;
       }
