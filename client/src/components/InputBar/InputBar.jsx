@@ -3,7 +3,6 @@ import './InputBar.scss';
 const InputBar = ({ type, name, children }) => {
   const { pathname } = useLocation();
   const requiredList = ['email', 'password'];
-  console.log(typeof children);
   const labelStyle =
     pathname === '/login'
       ? {
@@ -23,7 +22,7 @@ const InputBar = ({ type, name, children }) => {
       <input
         className='input-bar__input'
         type={type}
-        name={typeof children === 'string' ? children : type}
+        name={name}
         required={requiredList.includes(type)}
       />
     </div>
