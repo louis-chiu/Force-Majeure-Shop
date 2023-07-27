@@ -1,5 +1,17 @@
 import { apiSlice } from '../api/apiSlice';
 
+import { createSlice, current } from '@reduxjs/toolkit';
+
+const initialState = {};
+
+const productSlice = createSlice({
+  name: 'product',
+  initialState,
+  reducers: {},
+});
+export const {} = productSlice.actions;
+export default productSlice.reducer;
+
 // rtk query
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
