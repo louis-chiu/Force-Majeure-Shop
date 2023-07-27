@@ -10,10 +10,13 @@ import { store } from './store';
 import { Provider } from 'react-redux';
 import SignUp, { action as signUpAction } from './pages/SignUp/SignUp';
 import Member from './pages/Member/Member';
+import { loader as singleProductLoader } from './pages/SingleProduct/SingleProduct';
+import Error from './pages/Error/Error';
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
+    errorElement: <Error />,
     children: [
       {
         index: true,
@@ -45,6 +48,7 @@ const router = createBrowserRouter([
       {
         path: 'product/:id',
         element: <SingleProduct />,
+        loader: singleProductLoader,
       },
     ],
   },
