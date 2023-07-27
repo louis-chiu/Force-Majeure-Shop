@@ -1,22 +1,58 @@
-import { Form } from 'react-router-dom';
-import { BsStarFill } from 'react-icons/bs';
+import { Form, useLocation, useParams } from 'react-router-dom';
 import './ProductForm.scss';
 import ColorSelector from '../ColorSelector/ColorSelector';
 import SizeSelector from '../SizeSelector/SizeSelector';
 import AmountSelector from '../AmountSelector/AmountSelector';
 import Slider from '../Slider/Slider';
-const ProductForm = ({
-  image,
-  name,
-  rating,
-  price,
-  description,
-  color,
-  size,
-  stock,
-}) => {
+import Rating from '../Rating/Rating';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetAmount, setStock } from '../../features/cartItem/cartItemSlice';
+import { useEffect } from 'react';
+
+const ProductForm = ({ product }) => {
+  const {
+    image,
+    name,
+    rating,
+    price,
+    description,
+    color,
+    size,
+    stock: stockList,
+  } = product;
+
+  const {
+    color: colorState,
+    size: sizeState,
+    stock,
+    amount,
+  } = useSelector((store) => store.cartItem);
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    // dispatch(setProduct(product));
+  };
+
+  useEffect(() => {
+    if (!colorState || !sizeState) return;
+    const [_, currentStock] = Object.entries(stockList).find(
+      ([colorAndSize, stock]) => {
+        const [color, size] = colorAndSize.split(', ');
+        return color === colorState && size === sizeState;
+      }
+    );
+    // const [_, currentStock] = arrStock;
+    dispatch(setStock({ stock: currentStock }));
+    dispatch(resetAmount());
+  }, [colorState, sizeState]);
+  console.log(stock);
   return (
-    <Form className='product-form'>
+    <form
+      className='product-form'
+      onSubmit={handleAddToCart}
+    >
       <section className='product-form__image-container'>
         <img
           className='product-form__image'
@@ -32,13 +68,7 @@ const ProductForm = ({
       <section className='product-detail'>
         <div className='product-detail__header'>
           <h3 className='product-detail__name'>{name}</h3>
-          <div className='product-detail__rating'>
-            <BsStarFill />
-            <BsStarFill />
-            <BsStarFill />
-            <BsStarFill />
-            <BsStarFill />
-          </div>
+          <Rating rating={rating} />
         </div>
         <hr className='product-detail__hr' />
         <div className='product-detail__body'>
@@ -59,16 +89,28 @@ const ProductForm = ({
             ></AmountSelector>
             <p className='product-detail__total-price'>$ {price}</p>
           </div>
-          <p className={stock < 10 && `product-detail__stock`}>
+          <p className={stock < 10 ? `product-detail__stock` : ``}>
             {stock < 10 && `only ${stock} lefts in stocks!`}
           </p>
+
           <div className='product-detail__button-group'>
-            <div className='product-detail__buy'>Buy Now</div>
-            <div className='product-detail__cart'>Add to Cart</div>
+            <button
+              type='submit'
+              className='product-detail__buy'
+            >
+              Buy Now
+            </button>
+            <button
+              type='submit'
+              className='product-detail__cart'
+              value={'cart'}
+            >
+              Add to Cart
+            </button>
           </div>
         </div>
       </section>
-    </Form>
+    </form>
   );
 };
 export default ProductForm;

@@ -53,13 +53,6 @@
     &__name {
       font-size: 2rem;
     }
-    &__rating {
-      width: 30%;
-      display: flex;
-      justify-content: space-between;
-      color: #ddba20;
-      font-size: 2rem;
-    }
 
     &__body {
       width: 80%;
@@ -174,8 +167,8 @@
         }
       }
       .size-selector {
-        width: 100%;
-        gap: 0;
+        width: fit-content;
+        gap: 1.25rem;
         justify-content: space-between;
         &__size {
           width: 6.5rem;
@@ -222,7 +215,7 @@
 
       .size-selector {
         width: fit-content;
-        gap: 2rem;
+        gap: 1.25rem;
         &__size {
           @include circle;
         }
@@ -250,7 +243,7 @@
         font-size: var(--fs-m);
       }
       &__body {
-        gap: 0.5rem;
+        gap: 1rem;
       }
       .color-selector {
         height: fit-content;
