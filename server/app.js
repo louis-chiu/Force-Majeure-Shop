@@ -52,7 +52,9 @@ app.get('/api/products', async (req, res) => {
         SELECT pp.PhotoURL FROM ProductPhoto pp WHERE pp.ProductID = p.ProductID
       ) AS image,
       ARRAY(
-        SELECT ps.Size FROM ProductSize ps WHERE ps.ProductID = p.ProductID
+        SELECT ps.Size FROM ProductSize ps 
+        INNER JOIN ProductSizeMapping psm ON ps.SizeID = psm.SizeID
+        WHERE psm.ProductID = p.ProductID
       ) AS size,
       ARRAY(
         SELECT pc.Color FROM ProductColor pc
@@ -60,7 +62,13 @@ app.get('/api/products', async (req, res) => {
         WHERE pcm.ProductID = p.ProductID
       ) AS color,
       p.Description AS description,
-      p.Stock AS stock
+      -- p.Stock AS stock,
+      (
+        SELECT ROUND(AVG(rating), 1)
+        FROM Comment c 
+        INNER JOIN OrderItem oi ON c.orderitemid = oi.orderitemid
+        WHERE oi.ProductID = p.ProductID
+    ) AS average_rating
     FROM
       Product p
     `;
@@ -90,6 +98,7 @@ app.get('/api/products', async (req, res) => {
         color: colors,
         description: product.description,
         stock: product.stock,
+        rating: product.average_rating,
       };
     });
 
@@ -109,31 +118,42 @@ app.get('/api/products/:id', async (req, res) => {
     const result = await client.query(
       `
       SELECT
-        p.ProductID AS id,
-        p.Name AS name,
-        p.Price AS price,
-        ARRAY(
-          SELECT pp.PhotoURL FROM ProductPhoto pp WHERE pp.ProductID = p.ProductID
-        ) AS image,
-        ARRAY(
-          SELECT ps.Size FROM ProductSize ps WHERE ps.ProductID = p.ProductID
-        ) AS size,
-        ARRAY(
-          SELECT pc.Color FROM ProductColor pc
-          INNER JOIN ProductColorMapping pcm ON pc.ColorID = pcm.ColorID
-          WHERE pcm.ProductID = p.ProductID
-        ) AS color,
-        p.Description AS description,
-        p.Stock AS stock
-      FROM
-        Product p
-      WHERE
-        p.ProductID = $1;
+	p.ProductID AS id,
+	p.Name AS name,
+	p.Price AS price,
+	ARRAY(
+	  SELECT pp.PhotoURL FROM ProductPhoto pp WHERE pp.ProductID = p.ProductID
+	) AS image,
+	ARRAY(
+	  SELECT ps.Size FROM ProductSize ps 
+	  INNER JOIN ProductSizeMapping psm ON ps.SizeID = psm.SizeID
+	  WHERE psm.ProductID = p.ProductID
+	) AS size,
+	ARRAY(
+	  SELECT pc.Color FROM ProductColor pc
+	  INNER JOIN ProductColorMapping pcm ON pc.ColorID = pcm.ColorID
+	  WHERE pcm.ProductID = p.ProductID
+	) AS color,
+	p.Description AS description,
+	ROUND(
+		   (SELECT AVG(rating) FROM Comment c 
+		   INNER JOIN OrderItem oi ON c.orderitemid = oi.orderitemid
+		   WHERE oi.ProductID = p.ProductID),
+		   1
+	   ) AS average_rating,
+  	(
+		SELECT json_object_agg(CONCAT(pc.color, ', ', ps.size), psk.stock) AS stock 
+		FROM productstock  psk
+		INNER JOIN productsize ps ON ps.sizeid = psk.sizeid
+		INNER JOIN productcolor pc ON pc.colorid = psk.colorid
+    WHERE psk.productid = p.productid)
+  FROM
+	Product p
+  WHERE
+	p.ProductID = $1;
     `,
       [id]
     );
-
-    client.release();
 
     if (result.rows.length === 0) {
       res.status(404).json({ error: 'Product not found' });
@@ -141,6 +161,7 @@ app.get('/api/products/:id', async (req, res) => {
     }
 
     const product = result.rows[0];
+
     const colors = product.color.map((colorName) => {
       const color = colorMap.find((c) => c.name === colorName);
       return {
@@ -158,8 +179,50 @@ app.get('/api/products/:id', async (req, res) => {
       color: colors,
       description: product.description,
       stock: product.stock,
+      rating: product.average_rating,
     };
 
+    const commentQuery = await client.query(
+      `
+      SELECT
+        c.commentId,
+        c.content,
+        c.rating,
+        u.firstName,
+        u.lastName,
+        oi.orderItemId,
+        ps.size,
+        pc.color,
+        oi.quantity
+      FROM
+        Comment c
+      INNER JOIN OrderItem oi ON c.orderItemId = oi.orderItemId
+      INNER JOIN ProductColor pc ON pc.colorId = oi.colorId
+      INNER JOIN ProductSize ps ON ps.sizeId = oi.sizeId
+      INNER JOIN "User" u ON u.userId = c.userId
+      WHERE
+        oi.productId = $1;
+    `,
+      [id]
+    );
+
+    client.release();
+
+    const comments = commentQuery.rows.map((comment) => ({
+      commentId: comment.commentid,
+      name: `${comment.firstname} ${comment.lastname}`,
+      content: comment.content,
+      rating: comment.rating,
+      orderItem: {
+        orderItemId: comment.orderitemid,
+        size: comment.size,
+        color: colorMap.find((color) => color.name === comment.color),
+        amount: comment.quantity,
+      },
+    }));
+
+    productDetails.comments = comments;
+    console.log(comments[0].orderItem);
     res.json(productDetails);
   } catch (error) {
     console.error('Error executing SQL query', error);
@@ -252,11 +315,11 @@ app.post('/api/login', async (req, res) => {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
-    // 建立 JWT
-    const token = createJwtToken(user.id);
+    // // 建立 JWT
+    // const token = createJwtToken(user.id);
 
     // 返回 JWT
-    res.json({ token });
+    res.json({ ...user });
   } catch (error) {
     console.error('Error logging in', error);
     res.status(500).json({ error: 'An error occurred' });
@@ -272,4 +335,26 @@ function createJwtToken(userId) {
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
+});
+
+app.get('/test', async (req, res) => {
+  try {
+    const client = await pool.connect();
+
+    // 執行 SQL 查詢以檢查電子郵件是否已存在
+    const result = await client.query(
+      `select p.productid, psm.sizeid, pcm.colorid
+      from product p
+      inner join productcolormapping pcm 
+      on pcm.productid = p.productid
+      inner join productsizemapping psm
+      on psm.productid = p.productid
+      `
+    );
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error logging in', error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
 });
