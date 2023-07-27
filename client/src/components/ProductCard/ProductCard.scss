@@ -51,6 +51,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    .rating {
+      width: fit-content;
+      gap: 0.2rem;
+      font-size: var(--fs-l);
+    }
   }
   &__price {
     font-size: var(--fs-l);

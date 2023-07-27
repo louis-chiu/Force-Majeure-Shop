@@ -22,6 +22,10 @@
       overflow: hidden;
     }
   }
+  .rating {
+    width: 8rem;
+    font-size: 1.5rem;
+  }
 
   &-body {
     height: 70%;
@@ -34,11 +38,9 @@
     flex-grow: 1;
   }
   &__user {
-    &name {
-    }
     &-container {
       height: 50%;
-      width: 12rem;
+      width: 24rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -88,17 +90,8 @@
         height: 60px;
       }
     }
-
-    &-body {
-    }
-    &__user {
-      &name {
-      }
-      &-container {
-        width: 8rem;
-      }
-    }
-    &__content {
+    .rating {
+      font-size: 1rem;
     }
   }
   .order-detail {
@@ -121,7 +114,20 @@
         height: 40px;
       }
     }
+    .rating {
+      font-size: 1rem;
+    }
 
+    &__user {
+      &name {
+      }
+      &-container {
+        align-items: flex-start;
+        width: fit-content;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+    }
     &-body {
       width: 8rem;
     }

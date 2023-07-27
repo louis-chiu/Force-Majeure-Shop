@@ -2,7 +2,8 @@ import { BsStarFill, BsStar, BsStarHalf } from 'react-icons/bs';
 import './ProductCard.scss';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-const ProductCard = ({ id, name, image, price }) => {
+import Rating from '../Rating/Rating';
+const ProductCard = ({ id, name, image, price, rating }) => {
   return (
     <Link
       to={`/product/${id}`}
@@ -18,13 +19,7 @@ const ProductCard = ({ id, name, image, price }) => {
       <p className='product-card__name'>{name}</p>
       <div className='product-card__detail'>
         <p className='product-card__price'>$ {price}</p>
-        <div className='product-card__rating'>
-          <BsStarFill />
-          <BsStarFill />
-          <BsStarFill />
-          <BsStarFill />
-          <BsStarFill />
-        </div>
+        <Rating rating={rating} />
       </div>
     </Link>
   );

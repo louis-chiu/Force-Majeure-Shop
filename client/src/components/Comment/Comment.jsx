@@ -1,5 +1,6 @@
 import { defaultAvatarUrl } from '../../data';
 import './Comment.scss';
+import Rating from '../Rating/Rating';
 const Comment = ({
   image,
   name: username,
@@ -23,7 +24,10 @@ const Comment = ({
       <div className='comment-body'>
         <div className='comment__user-container'>
           <p className='comment__username'>{username}</p>
-          <div className='comment__product-rating'>{rating}</div>
+          <Rating
+            className='comment__product-rating'
+            rating={rating}
+          />
         </div>
         <div className='comment__content-container'>
           <p className='comment__content'>{content}</p>
