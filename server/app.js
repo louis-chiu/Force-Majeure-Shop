@@ -4,17 +4,20 @@ const cors = require('cors');
 const app = express();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { login, register } = require('./controllers/auth');
+const { login, register } = require('./controllers/authController');
 const { test } = require('./controllers/test');
-const { findAllProduct, findProductById } = require('./controllers/product');
+const {
+  findAllProduct,
+  findProductById,
+} = require('./controllers/productController');
 require('dotenv').config();
 
 const corsOptions = {
   origin: ['http://localhost:5173', 'http://chiu.hopto.org:5173'],
 };
 
-const authRouter = require('./routes/auth');
-const productRouter = require('./routes/product');
+const authRouter = require('./routes/authRoutes');
+const productRouter = require('./routes/productRoutes');
 
 app.use(express.json());
 app.use(cors(corsOptions));
