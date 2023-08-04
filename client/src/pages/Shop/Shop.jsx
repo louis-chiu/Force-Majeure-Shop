@@ -2,45 +2,58 @@ import ProductCard from '../../components/ProductCard/ProductCard';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import SortBar from '../../components/SortBar/SortBar';
 import {
+  extendedApiSlice as productApi,
   useGetProductByIdQuery,
+  useGetProductsByFilterQuery,
   useGetProductsQuery,
 } from '../../features/product/productSlice';
 import './Shop.scss';
-import { BiSolidLeftArrow, BiSolidRightArrow } from 'react-icons/bi';
 import Error from '../Error/Error';
 import Loading from '../Loading/Loading';
+import { useDispatch, useSelector } from 'react-redux';
+import { setProducts } from '../../features/product/productSlice';
+import { store } from '../../store';
+import { useLoaderData } from 'react-router-dom';
+import { useEffect } from 'react';
+import Banner from '../../components/BannerSlider/BannerSlider';
+
+export const loader = async () => {
+  const {
+    data: products,
+    isError,
+    isLoading,
+  } = await store.dispatch(productApi.endpoints.getProducts.initiate());
+  store.dispatch(setProducts({ products }));
+  return { isError, isLoading };
+};
 
 const Shop = () => {
-  const { data: products, isError, isLoading } = useGetProductsQuery();
+  const { sortBy, ascOrDesc, keyword } = useSelector((store) => store.filter);
+
+  const { isError, isLoading } = useLoaderData();
+  const dispatch = useDispatch();
+  const { productList: products, isFirst } = useSelector(
+    (store) => store.product
+  );
   if (isError) return <Error />;
   if (isLoading) return <Loading />;
+  
+  useEffect(() => {
+    if (!isFirst) {
+      dispatch(
+        productApi.endpoints.getProductsByFilter.initiate({
+          keyword,
+          sortBy,
+          ascOrDesc,
+        })
+      ).then(({ data }) => {
+        dispatch(setProducts({ products: data }));
+      });
+    }
+  }, [sortBy, ascOrDesc, keyword]);
   return (
     <div className='shop'>
-      <section className='banner'>
-        <ul className='slides'>
-          <li className='slide'>
-            <div className='slide__filter'>
-              <h2 className='slide__title'>Force Majeure</h2>
-            </div>
-          </li>
-          <li className='slide'>
-            <div className='slide__filter'>
-              <h2 className='slide__title'>Force Majeure</h2>
-            </div>
-          </li>
-          <li className='slide'>
-            <div className='slide__filter'>
-              <h2 className='slide__title'>Force Majeure</h2>
-            </div>
-          </li>
-          <div className='slides__controller'>
-            <BiSolidLeftArrow />
-          </div>
-          <div className='slides__controller'>
-            <BiSolidRightArrow />
-          </div>
-        </ul>
-      </section>
+      <Banner />
       <section className='product-list-container'>
         <div className='filter-bar'>
           <SortBar />
