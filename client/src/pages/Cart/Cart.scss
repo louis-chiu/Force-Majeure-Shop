@@ -1,0 +1,41 @@
+.cart {
+  width: 100%;
+  &__container {
+    margin: 2rem auto;
+    width: 75%;
+
+    border-radius: 1rem;
+    background: var(--primary-opacity-50);
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &__title {
+    padding: 2rem 0;
+    font-size: var(--fs-xxl);
+  }
+}
+@media (max-width: 1480px) {
+  .cart {
+    &__container {
+      width: 80%;
+    }
+  }
+}
+@media (max-width: 1180px) {
+  .cart {
+    &__container {
+      width: 90%;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .cart {
+    &__container {
+      width: 100%;
+    }
+  }
+}
