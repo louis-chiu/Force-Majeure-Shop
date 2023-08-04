@@ -12,6 +12,7 @@ const initialState = {
   size: '',
   stock: 0,
   image: [],
+  isAddToCart: false,
 };
 
 const cartItemSlice = createSlice({
@@ -20,7 +21,13 @@ const cartItemSlice = createSlice({
   reducers: {
     resetCartItem: (state, action) => {
       const { payload: product } = action;
-      return { ...initialState, ...product, amount: 0 };
+      state.name = product.name;
+      state.image = product.image[0];
+      state.price = parseInt(product.price);
+      state.color = product.color[0].name;
+      state.size = product.size[0];
+      state.id = product.id;
+      state.amount = 1;
     },
     setColor: (state, action) => {
       const { payload: product } = action;
@@ -40,12 +47,12 @@ const cartItemSlice = createSlice({
       }
     },
     subtractAmount: (state) => {
-      if (state.amount > 0) {
+      if (state.amount > 1) {
         state.amount -= 1;
       }
     },
     resetAmount: (state) => {
-      state.amount = 0;
+      state.amount = 1;
     },
   },
 });

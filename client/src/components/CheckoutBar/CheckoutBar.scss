@@ -1,0 +1,59 @@
+@import '../../mixin';
+.checkout {
+  max-width: 1730px;
+  width: 90%;
+
+  border-radius: 8px;
+  margin: 0 auto;
+  padding: 1.75rem 4rem;
+  background: var(--primary-opacity-80);
+  box-shadow: var(--box-shadow);
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 8px;
+  z-index: 5;
+
+  position: sticky;
+  bottom: 0;
+  &__price {
+    width: 8rem;
+    font-size: var(--fs-xl);
+    &-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4rem;
+    }
+    &-label {
+      font-size: var(--fs-l);
+    }
+  }
+  &__btn {
+    @include btn;
+    height: 3rem;
+    width: 12rem;
+  }
+}
+
+@media (max-width: 880px) {
+  .checkout {
+    padding: 1.75rem 1rem;
+    width: 100%;
+    &__price {
+      width: 4rem;
+      font-size: var(--fs-m);
+      &-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+      &-label {
+        font-size: var(--fs-m);
+      }
+    }
+  }
+}

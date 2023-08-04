@@ -124,15 +124,6 @@
 
 @media (max-width: 1680px) {
   .product {
-    &-form {
-      &__image {
-        &-slider {
-          & img {
-            width: 400px;
-          }
-        }
-      }
-    }
     &-detail {
       &__hr {
         width: 90%;
@@ -168,8 +159,8 @@
       }
       .size-selector {
         width: fit-content;
-        gap: 1.25rem;
-        justify-content: space-between;
+        justify-content: space-evenly;
+        flex-wrap: nowrap;
         &__size {
           width: 6.5rem;
         }

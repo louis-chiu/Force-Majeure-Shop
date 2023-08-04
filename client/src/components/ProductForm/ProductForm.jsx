@@ -6,10 +6,16 @@ import AmountSelector from '../AmountSelector/AmountSelector';
 import Slider from '../Slider/Slider';
 import Rating from '../Rating/Rating';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetAmount, setStock } from '../../features/cartItem/cartItemSlice';
+import {
+  resetAmount,
+  resetCartItem,
+  setStock,
+} from '../../features/cartItem/cartItemSlice';
 import { useEffect } from 'react';
+import { addItem } from '../../features/cart/cartSlice';
 
 const ProductForm = ({ product }) => {
+  const { id } = useParams();
   const {
     image,
     name,
@@ -25,14 +31,24 @@ const ProductForm = ({ product }) => {
     color: colorState,
     size: sizeState,
     stock,
-    amount,
   } = useSelector((store) => store.cartItem);
+
+  const { currentHoverIndex } = useSelector(
+    (store) => store.singleProductSlider
+  );
+
+  const cartItem = useSelector((store) => store.cartItem);
   const dispatch = useDispatch();
 
   const handleAddToCart = (e) => {
     e.preventDefault();
-    const data = new FormData(e.target);
-    // dispatch(setProduct(product));
+    dispatch(addItem({ ...cartItem, isAddToCart: true }));
+    dispatch(
+      resetCartItem({
+        ...product,
+        id,
+      })
+    );
   };
 
   useEffect(() => {
@@ -47,7 +63,6 @@ const ProductForm = ({ product }) => {
     dispatch(setStock({ stock: currentStock }));
     dispatch(resetAmount());
   }, [colorState, sizeState]);
-  console.log(stock);
   return (
     <form
       className='product-form'
@@ -56,7 +71,7 @@ const ProductForm = ({ product }) => {
       <section className='product-form__image-container'>
         <img
           className='product-form__image'
-          src={image?.[0]}
+          src={image?.[currentHoverIndex]}
           alt={name}
         />
         <Slider
@@ -85,7 +100,7 @@ const ProductForm = ({ product }) => {
           <div className='product-detail__selector-container'>
             <AmountSelector
               className='product-detail__amount-selector'
-              stock={stock}
+              product={cartItem}
             ></AmountSelector>
             <p className='product-detail__total-price'>$ {price}</p>
           </div>
