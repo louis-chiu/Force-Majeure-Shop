@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from './pages';
 import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
-import Shop from './pages/Shop/Shop';
+import Shop, { loader as shopLoader } from './pages/Shop/Shop';
 import Login, { action as loginAction } from './pages/Login/Login';
 import SingleProduct from './pages/SingleProduct/SingleProduct';
 import { store } from './store';
@@ -29,6 +29,7 @@ const router = createBrowserRouter([
       {
         path: 'shop',
         element: <Shop />,
+        loader: shopLoader,
       },
       {
         path: 'login',
