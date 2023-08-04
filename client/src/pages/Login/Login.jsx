@@ -3,19 +3,19 @@ import { Form, Link, redirect, useActionData } from 'react-router-dom';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import InputBar from '../../components/InputBar/InputBar';
-import { useLoginMutation } from '../../features/user/userSlice';
+import { useLoginMutation } from '../../features/auth/authSlice';
 import Loading from '../Loading/Loading';
 import Error from '../Error/Error';
 import { store } from '../../store';
 import {
   login,
-  extendedApiSlice as userApi,
-} from '../../features/user/userSlice';
+  extendedApiSlice as authApi,
+} from '../../features/auth/authSlice';
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const credentials = Object.fromEntries(formData);
-  const promise = store.dispatch(userApi.endpoints.login.initiate(credentials));
+  const promise = store.dispatch(authApi.endpoints.login.initiate(credentials));
   try {
     const credentials = await promise.unwrap();
     store.dispatch(login(credentials));

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
 import { apiSlice } from '../api/apiSlice';
 
 const initialState = {
@@ -9,13 +9,12 @@ const initialState = {
   isLogin: false,
 };
 
-const userSlice = createSlice({
-  name: 'user',
+const authSlice = createSlice({
+  name: 'auth',
   initialState,
   reducers: {
     login: (state, action) => {
       const { payload } = action;
-
       state.memberAccount = payload.email;
       state.memberData = payload;
       state.isLoading = false;
@@ -26,8 +25,8 @@ const userSlice = createSlice({
     },
   },
 });
-export const { login, logout } = userSlice.actions;
-export default userSlice.reducer;
+export const { login, logout } = authSlice.actions;
+export default authSlice.reducer;
 
 // rtk query
 export const extendedApiSlice = apiSlice.injectEndpoints({
