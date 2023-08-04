@@ -33,6 +33,7 @@ input[type='search']::-webkit-search-decoration {
   -moz-box-shadow: none;
   box-shadow: none;
 }
+
 h1,
 h2,
 h3,
@@ -70,7 +71,13 @@ html {
   --primary-800: #343a40;
   --primary-900: #212529;
   --primary-opacity: rgba(248, 249, 250, 0.2);
+  --primary-opacity-30: rgba(248, 249, 250, 0.3);
+  --primary-opacity-40: rgba(248, 249, 250, 0.4);
   --primary-opacity-50: rgba(248, 249, 250, 0.5);
+  --primary-opacity-60: rgba(248, 249, 250, 0.6);
+  --primary-opacity-70: rgba(248, 249, 250, 0.7);
+  --primary-opacity-80: rgba(248, 249, 250, 0.8);
+  --primary-opacity-90: rgba(248, 249, 250, 0.9);
   --primary-opacity-500: rgb(173, 181, 189, 0.7);
 
   --fs-xxl: 1.75rem;
