@@ -2,18 +2,29 @@ import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import './AmountSelector.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  addAmount,
-  subtractAmount,
+  addAmount as addProductAmount,
+  subtractAmount as subtractProductAmount,
 } from '../../features/cartItem/cartItemSlice';
-const AmountSelector = ({ stock }) => {
+import {
+  addItemAmount,
+  subtractItemAmount,
+} from '../../features/cart/cartSlice';
+
+const AmountSelector = ({ product }) => {
+  const { amount, isAddToCart } = product;
   const dispatch = useDispatch();
-  const { amount } = useSelector((store) => store.cartItem);
   return (
     <div className='amount-selector'>
       <button
         type='button'
         className='amount-selector__btn'
-        onClick={() => dispatch(subtractAmount())}
+        onClick={() =>
+          dispatch(
+            isAddToCart
+              ? subtractItemAmount({ ...product })
+              : subtractProductAmount()
+          )
+        }
       >
         <AiOutlineMinus />
       </button>
@@ -21,7 +32,11 @@ const AmountSelector = ({ stock }) => {
       <button
         type='button'
         className='amount-selector__btn'
-        onClick={() => dispatch(addAmount())}
+        onClick={() =>
+          dispatch(
+            isAddToCart ? addItemAmount({ ...product }) : addProductAmount()
+          )
+        }
       >
         <AiOutlinePlus />
       </button>
