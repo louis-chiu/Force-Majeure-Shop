@@ -6,13 +6,13 @@ import InputBar from '../../components/InputBar/InputBar';
 import { store } from '../../store';
 import {
   login,
-  extendedApiSlice as userApi,
-} from '../../features/user/userSlice';
+  extendedApiSlice as authApi,
+} from '../../features/auth/authSlice';
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const user = Object.fromEntries(formData);
-  const promise = store.dispatch(userApi.endpoints.register.initiate(user));
+  const promise = store.dispatch(authApi.endpoints.register.initiate(user));
   try {
     const response = await promise.unwrap();
     store.dispatch(login({ email: user.email, password: user.password }));
