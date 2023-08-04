@@ -5,6 +5,3 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://chiu.hopto.org:3000/api/' }),
   endpoints: (builder) => ({}),
 });
-
-// Export the auto-generated hook for the `getPosts` query endpoint
-export const { useGetPostsQuery } = apiSlice;
