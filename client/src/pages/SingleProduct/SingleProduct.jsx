@@ -12,6 +12,7 @@ import { resetCartItem } from '../../features/cartItem/cartItemSlice';
 import { store } from '../../store';
 
 import { extendedApiSlice as productApi } from '../../features/product/productSlice';
+import { setImageList } from '../../features/slider/singleProductSliderSlice';
 export const loader = async ({ params }) => {
   const { id } = params;
   const {
@@ -21,19 +22,17 @@ export const loader = async ({ params }) => {
   } = await store.dispatch(productApi.endpoints.getProductById.initiate(id));
   store.dispatch(
     resetCartItem({
-      name: product.name,
-      image: product.image[0],
-      price: product.price,
-      color: product.color[0].name,
-      size: product.size[0],
+      ...product,
       id,
     })
   );
+
   return { data: product, isError, isLoading };
 };
 const SingleProduct = () => {
+  const dispatch = useDispatch();
   const { data: product, isError, isLoading } = useLoaderData();
-
+  dispatch(setImageList({ imageList: product.image }));
   const commentList = product?.comments;
   if (isError) return <Error />;
   if (isLoading) return <Loading />;

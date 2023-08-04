@@ -1,14 +1,18 @@
 .slider {
-  width: 95%;
+  width: 100%;
   position: relative;
+
+  &__item {
+    transition: transform 1s;
+  }
   &__image {
-    width: 100px;
+    width: 120px;
     &-list {
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      overflow: hidden;
     }
     &:hover {
       cursor: pointer;
@@ -18,9 +22,11 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-
     font-size: var(--fs-l);
     color: var(--primary-700);
+    z-index: 5;
+
+    visibility: hidden;
     &:hover {
       cursor: pointer;
     }
@@ -32,11 +38,15 @@
     }
   }
 }
-
+@media (max-width: 1480px) {
+  .slider {
+    &__image {
+      width: 110px;
+    }
+  }
+}
 @media (max-width: 1120px) {
   .slider {
-    width: 100%;
-
     &__image {
       width: 360px;
       &-list {
@@ -52,7 +62,7 @@
     &__controller {
       font-size: var(--fs-xl);
       color: var(--primary-700);
-
+      visibility: visible;
       &:hover {
         cursor: pointer;
       }
