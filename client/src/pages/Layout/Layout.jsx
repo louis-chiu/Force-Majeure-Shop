@@ -4,7 +4,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import './Layout.scss';
 const Layout = () => {
   const { pathname } = useLocation();
-  const withoutFooterPath = ['/', '/login', '/signup'];
+  const withoutFooterPath = ['/', '/login', '/signup', '/cart'];
   const isWithoutFooterPath = !withoutFooterPath.includes(pathname);
 
   return (
