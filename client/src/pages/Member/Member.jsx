@@ -1,32 +1,40 @@
 import { useActionData } from 'react-router-dom';
 import './Member.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { store } from '../../store';
+import MemberData from '../../components/MemberData/MemberData';
+import { useEffect } from 'react';
+import { useGetOrderByUserIdQuery } from '../../features/order/orderSlice';
+import Loading from '../Loading/Loading';
+import Error from '../Error/Error';
+import OrderHistory from '../../components/OrderHistory/OrderHistory';
+import { setOrderHistory } from '../../features/auth/authSlice';
+
 const Member = () => {
   const {
-    memberData: {
-      address,
-      email,
-      lastname: lastName,
-      firstname: firstName,
-      userid: userId,
-    },
-  } = useSelector((store) => store.user);
+    memberData: { userid: userId },
+  } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
+
+  const {
+    data: orderHistory,
+    isLoading,
+    error,
+  } = useGetOrderByUserIdQuery(userId);
+
+  useEffect(() => {
+    if (isLoading || error) return;
+    dispatch(setOrderHistory(orderHistory));
+  }, [orderHistory]);
+
+  if (error) return <Error />;
+  if (isLoading) return <Loading />;
+
   return (
-    <table className='member-data'>
-      <thead>
-        <th>Name</th>
-        <th>Email</th>
-        <th>ID</th>
-        <th>Address</th>
-      </thead>
-      <tbody>
-        <td>{lastName + ' ' + firstName}</td>
-        <td>{email}</td>
-        <td>{userId}</td>
-        <td>{address}</td>
-      </tbody>
-    </table>
+    <div className='member'>
+      <MemberData />
+      <OrderHistory />
+    </div>
   );
 };
 export default Member;

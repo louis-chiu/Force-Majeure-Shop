@@ -1,0 +1,128 @@
+@import '../../mixin';
+
+.member-data {
+  width: 70%;
+
+  background: var(--primary-opacity-60);
+  margin: 2rem 0 0 0;
+  padding: 2rem 0;
+  border-radius: 0.75rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  box-shadow: var(--box-shadow);
+
+  &__content {
+    width: 90%;
+    min-width: 42rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.75rem;
+
+    background: var(--primary-100);
+    border-radius: 0.75rem;
+    padding: 2rem 4rem;
+
+    box-shadow: var(--box-shadow);
+  }
+  &__title {
+    font-size: var(--fs-xxl);
+  }
+
+  &__user-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8rem;
+  }
+
+  &__image {
+    width: 6rem;
+    &-container {
+      min-width: 6rem;
+      height: 6rem;
+
+      margin: 0 2rem;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+  }
+
+  &__name {
+    font-size: var(--fs-l);
+    word-spacing: 1rem;
+    width: 75%;
+  }
+
+  &__detail {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  &__email {
+    @include member-data;
+  }
+
+  &__address {
+    @include member-data;
+  }
+
+  &__total-spending {
+    @include member-data;
+  }
+}
+
+@media (max-width: 1080px) {
+  .member-data {
+    width: 90%;
+  }
+}
+
+@media (max-width: 780px) {
+  .member-data {
+    min-width: 0;
+    width: 100%;
+    border-radius: 0;
+    &__content {
+      min-width: 0;
+
+      width: 100%;
+
+      background: #fff;
+      border-radius: 0;
+      padding: 2rem 0;
+    }
+    &__title {
+      font-size: var(--fs-l);
+    }
+
+    &__user-container {
+      align-self: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    &__image {
+      width: 4rem;
+      &-container {
+        min-width: 4rem;
+        height: 4rem;
+      }
+    }
+    &__name {
+      font-size: var(--fs-l);
+      word-spacing: 0.1rem;
+    }
+  }
+}
