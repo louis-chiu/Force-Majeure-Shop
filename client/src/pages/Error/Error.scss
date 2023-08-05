@@ -10,6 +10,9 @@
   &__icon {
     color: var(--primary-800);
     font-size: 12rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     animation-name: error-shake;
     animation-duration: 2s;
     animation-timing-function: linear;
@@ -31,5 +34,23 @@
   }
   75% {
     transform: rotate3d(0, 0, -1, 15deg);
+  }
+}
+
+@media (max-width: 780px) {
+  .error {
+    &__icon {
+      font-size: 10rem;
+    }
+    &__title {
+      font-size: 2.25rem;
+    }
+    &__content {
+      font-size: var(--fs-xl);
+    }
+    &__btn {
+      @include btn;
+      font-size: var(--fs-s);
+    }
   }
 }
