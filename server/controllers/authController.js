@@ -1,4 +1,7 @@
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const { pool } = require('../db/connect');
+require('dotenv').config();
 
 const login = async (req, res) => {
   try {
@@ -16,8 +19,13 @@ const login = async (req, res) => {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
-    // // 建立 JWT
-    // const token = createJwtToken(user.id);
+    const token = createJwtToken(user.id);
+    res.cookie('jwt', token, {
+      // httpOnly: true,
+      // secure: true, // 只在 HTTPS 下使用
+      maxAge: 60 * 60 * 1000, // 過期時間為 1 小時
+      path: '/',
+    });
 
     // 返回 JWT
     res.json({ ...user });
@@ -29,10 +37,8 @@ const login = async (req, res) => {
 
 const register = async (req, res) => {
   try {
-    console.log(req.body);
     const { firstName, lastName, email, password, address } = req.body;
 
-    // 檢查電子郵件是否重複
     const isEmailDuplicate = await checkEmailDuplicate(email);
     if (isEmailDuplicate) {
       return res.status(409).json({ error: 'Email is already registered' });
