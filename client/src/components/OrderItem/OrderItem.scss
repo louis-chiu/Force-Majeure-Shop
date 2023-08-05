@@ -1,0 +1,123 @@
+@import '../../mixin';
+.order-item {
+  width: 100%;
+  height: 10rem;
+
+  background: var(--primary-100);
+  border-radius: 0.75rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: var(--box-shadow);
+  transition: transform 0.5s;
+  &__image {
+    width: 100px;
+    &-container {
+      width: calc(100% / 6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &__detail {
+    width: calc(100% / 6 * 5);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    &-container {
+      width: calc(100% / 6 * 4);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  &__name {
+    width: calc(100% / 6 + 3%);
+    text-align: center;
+  }
+  &__color {
+    @include circle;
+    outline: 0.1px solid var(--primary-800);
+    margin: 0 auto;
+    &-container {
+      width: calc(100% / 6 - 3%);
+    }
+  }
+
+  &__size {
+    width: calc(100% / 6 - 3%);
+    text-align: center;
+  }
+
+  &__amount {
+    width: calc(100% / 6 - 3%);
+    text-align: center;
+  }
+
+  &__price {
+    width: calc((100% / 6 + 12%));
+    text-align: center;
+  }
+}
+@media (max-width: 780px) {
+  .order-item {
+    border-radius: 0;
+    padding: 0 1rem;
+    gap: 1rem;
+    &__image {
+      width: 100px;
+      &-container {
+        width: calc(100% / 3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    &__detail {
+      width: calc(100% / 3 * 2);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1.25rem;
+
+      &-container {
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+    &__name {
+      width: 100%;
+      text-align: start;
+    }
+    &__color {
+      @include circle;
+      margin: 0 auto;
+      &-container {
+        width: calc(100% / 6 - 3%);
+      }
+    }
+
+    &__size {
+      width: calc(100% / 6 - 3%);
+      text-align: center;
+    }
+
+    &__amount {
+      width: calc(100% / 6 - 3%);
+      text-align: center;
+    }
+
+    &__price {
+      width: calc((100% / 6 + 12%));
+      text-align: center;
+    }
+  }
+}
