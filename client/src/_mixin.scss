@@ -57,9 +57,29 @@
   align-items: center;
   justify-content: space-evenly;
 }
-.btn {
-  @include btn;
-}
-.circle {
-  @include circle;
+
+@mixin member-data {
+  font-size: var(--fs-l);
+  min-width: 16rem;
+  &-label {
+    min-width: 10rem;
+    font-size: var(--fs-l);
+    text-align: center;
+  }
+  &-container {
+    display: flex;
+    align-items: center;
+    gap: 8rem;
+  }
+  @media (max-width: 780px) {
+    font-size: var(--fs-m);
+    text-align: center;
+    &-label {
+      display: none;
+    }
+    &-container {
+      width: 100%;
+      justify-content: center;
+    }
+  }
 }
