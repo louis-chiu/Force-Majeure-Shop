@@ -1,12 +1,7 @@
 import ProductCard from '../../components/ProductCard/ProductCard';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import SortBar from '../../components/SortBar/SortBar';
-import {
-  extendedApiSlice as productApi,
-  useGetProductByIdQuery,
-  useGetProductsByFilterQuery,
-  useGetProductsQuery,
-} from '../../features/product/productSlice';
+import { extendedApiSlice as productApi } from '../../features/product/productSlice';
 import './Shop.scss';
 import Error from '../Error/Error';
 import Loading from '../Loading/Loading';
@@ -16,6 +11,7 @@ import { store } from '../../store';
 import { useLoaderData } from 'react-router-dom';
 import { useEffect } from 'react';
 import Banner from '../../components/BannerSlider/BannerSlider';
+import { resetFilter } from '../../features/filter/filterSlice';
 
 export const loader = async () => {
   const {
@@ -24,12 +20,12 @@ export const loader = async () => {
     isLoading,
   } = await store.dispatch(productApi.endpoints.getProducts.initiate());
   store.dispatch(setProducts({ products }));
+  store.dispatch(resetFilter());
   return { isError, isLoading };
 };
 
 const Shop = () => {
   const { sortBy, ascOrDesc, keyword } = useSelector((store) => store.filter);
-
   const { isError, isLoading } = useLoaderData();
   const dispatch = useDispatch();
   const { productList: products, isFirst } = useSelector(
@@ -37,7 +33,7 @@ const Shop = () => {
   );
   if (isError) return <Error />;
   if (isLoading) return <Loading />;
-  
+
   useEffect(() => {
     if (!isFirst) {
       dispatch(
