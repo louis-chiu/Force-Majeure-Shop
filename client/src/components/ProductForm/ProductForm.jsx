@@ -1,4 +1,4 @@
-import { Form, useLocation, useParams } from 'react-router-dom';
+import { Form, useLocation, useNavigate, useParams } from 'react-router-dom';
 import './ProductForm.scss';
 import ColorSelector from '../ColorSelector/ColorSelector';
 import SizeSelector from '../SizeSelector/SizeSelector';
@@ -11,8 +11,13 @@ import {
   resetCartItem,
   setStock,
 } from '../../features/cartItem/cartItemSlice';
-import { useEffect } from 'react';
-import { addItem } from '../../features/cart/cartSlice';
+import { useCallback, useEffect } from 'react';
+import { addItem, clearItems } from '../../features/cart/cartSlice';
+import { useCheckoutMutation } from '../../features/checkout/checkoutSlice';
+import {
+  extendedApiSlice,
+  useCreateOrderMutation,
+} from '../../features/order/orderSlice';
 
 const ProductForm = ({ product }) => {
   const { id } = useParams();
@@ -37,10 +42,16 @@ const ProductForm = ({ product }) => {
     (store) => store.singleProductSlider
   );
 
+  const {
+    isLogin,
+    memberData: { userid: userId },
+  } = useSelector((store) => store.auth);
+  const navigate = useNavigate();
+
   const cartItem = useSelector((store) => store.cartItem);
   const dispatch = useDispatch();
 
-  const handleAddToCart = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addItem({ ...cartItem, isAddToCart: true }));
     dispatch(
@@ -51,6 +62,95 @@ const ProductForm = ({ product }) => {
     );
   };
 
+  const formatDataToCreateOrder = useCallback(() => {
+    const order = {
+      userId,
+      orderDate: new Date(Date.now()).toLocaleDateString(),
+      paymentStatus: 'Pending',
+      orderItems: [],
+    };
+    const { id, amount, color, size } = cartItem;
+
+    const orderItems = [
+      {
+        productId: id,
+        quantity: amount,
+        color,
+        size,
+      },
+    ];
+
+    return { ...order, orderItems };
+  });
+
+  const formatDataForLinePay = useCallback(async (orderId) => {
+    const {
+      data: orderItems,
+      isError,
+      isSuccess,
+    } = await dispatch(
+      extendedApiSlice.endpoints.getOrderById.initiate(orderId)
+    );
+    if (isError) return 'Error';
+    if (isSuccess) {
+      const lineRequestBody = {
+        amount: orderItems.reduce(
+          (accumulator, current) =>
+            (accumulator +=
+              parseInt(current.price) * parseInt(current.quantity)),
+          0
+        ),
+        currency: 'TWD',
+        orderId: String(orderId),
+        packages: [
+          ...orderItems.map((item) => {
+            return {
+              id: String(item.orderitemid),
+              amount: parseInt(item.price) * parseInt(item.quantity),
+              products: [
+                {
+                  id: String(item.productid),
+                  name: item.name,
+                  quantity: item.quantity,
+                  imageUrl: item.image[0],
+                  price: parseInt(item.price),
+                },
+              ],
+            };
+          }),
+        ],
+      };
+      return lineRequestBody;
+    }
+  });
+
+  const [createOrder, { data, isLoading, isError, isSuccess }] =
+    useCreateOrderMutation();
+  const [checkout] = useCheckoutMutation();
+  const handleClick = async () => {
+    if (!isLogin) {
+      navigate('/login');
+      return;
+    }
+    try {
+      const { message, orderId } = await createOrder(
+        formatDataToCreateOrder()
+      ).unwrap();
+
+      if (orderId) {
+        dispatch(clearItems());
+        const { url } = await checkout(
+          await formatDataForLinePay(orderId)
+        ).unwrap();
+        if (url) {
+          window.location.replace(url);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (!colorState || !sizeState) return;
     const [_, currentStock] = Object.entries(stockList).find(
@@ -59,14 +159,14 @@ const ProductForm = ({ product }) => {
         return color === colorState && size === sizeState;
       }
     );
-    // const [_, currentStock] = arrStock;
+
     dispatch(setStock({ stock: currentStock }));
     dispatch(resetAmount());
   }, [colorState, sizeState]);
   return (
     <form
       className='product-form'
-      onSubmit={handleAddToCart}
+      onSubmit={handleSubmit}
     >
       <section className='product-form__image-container'>
         <img
@@ -110,8 +210,9 @@ const ProductForm = ({ product }) => {
 
           <div className='product-detail__button-group'>
             <button
-              type='submit'
+              type='button'
               className='product-detail__buy'
+              onClick={handleClick}
             >
               Buy Now
             </button>

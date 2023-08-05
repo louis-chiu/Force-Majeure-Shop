@@ -4,9 +4,13 @@ import { apiSlice } from '../api/apiSlice';
 const initialState = {
   memberAccount: '',
   memberData: {},
-  orderHistory: {},
+  orderHistory: {
+    orders: [],
+    totalPrice: 0,
+  },
   isLoading: true,
   isLogin: false,
+  token: '',
 };
 
 const authSlice = createSlice({
@@ -21,11 +25,15 @@ const authSlice = createSlice({
       state.isLogin = true;
     },
     logout: (state) => {
-      state = initialState;
+      return { ...initialState };
+    },
+    setOrderHistory: (state, action) => {
+      const orderHistory = action.payload;
+      state.orderHistory = orderHistory;
     },
   },
 });
-export const { login, logout } = authSlice.actions;
+export const { login, logout, setOrderHistory } = authSlice.actions;
 export default authSlice.reducer;
 
 // rtk query
