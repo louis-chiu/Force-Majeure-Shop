@@ -12,9 +12,7 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     setProducts: (state, action) => {
-      const {
-        payload: { products },
-      } = action;
+      const { products } = action.payload;
       state.productList = products;
       state.isFirst = false;
     },
@@ -29,14 +27,14 @@ export default productSlice.reducer;
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProductById: builder.query({
-      query: (id) => `products/${id}`,
+      query: (id) => `product/${id}`,
     }),
     getProducts: builder.query({
-      query: () => 'products',
+      query: () => 'product',
     }),
     getProductsByFilter: builder.query({
       query: ({ keyword, sortBy, ascOrDesc }) => {
-        let queryString = 'products?';
+        let queryString = 'product?';
         if (keyword) {
           queryString += `keyword=${keyword}&`;
         }

@@ -2,7 +2,7 @@ import './Footer.scss';
 import { socialMedia } from '../../data';
 const Footer = () => {
   return (
-    <footer>
+    <footer className='footer'>
       <ul className='links'>
         <li>
           <a href='#about'>About Us</a>

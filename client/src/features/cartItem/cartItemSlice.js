@@ -20,7 +20,7 @@ const cartItemSlice = createSlice({
   initialState,
   reducers: {
     resetCartItem: (state, action) => {
-      const { payload: product } = action;
+      const product = action.payload;
       state.name = product.name;
       state.image = product.image[0];
       state.price = parseInt(product.price);
@@ -30,15 +30,15 @@ const cartItemSlice = createSlice({
       state.amount = 1;
     },
     setColor: (state, action) => {
-      const { payload: product } = action;
+      const product = action.payload;
       state.color = product.color;
     },
     setSize: (state, action) => {
-      const { payload: product } = action;
+      const product = action.payload;
       state.size = product.size;
     },
     setStock: (state, action) => {
-      const { payload: product } = action;
+      const product = action.payload;
       state.stock = product.stock;
     },
     addAmount: (state) => {

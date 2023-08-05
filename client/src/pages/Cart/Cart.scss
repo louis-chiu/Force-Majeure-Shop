@@ -1,7 +1,8 @@
 .cart {
   width: 100%;
+
   &__container {
-    margin: 2rem auto;
+    margin: 1.2rem auto;
     width: 75%;
 
     border-radius: 1rem;
@@ -10,6 +11,8 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+
+    box-shadow: var(--box-shadow);
   }
 
   &__title {
@@ -36,6 +39,7 @@
   .cart {
     &__container {
       width: 100%;
+      border-radius: 0;
     }
   }
 }

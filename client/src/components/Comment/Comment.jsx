@@ -41,8 +41,6 @@ const Comment = ({
         />
         <div className='order-detail__size'>{size ?? 'size'}</div>
       </div>
-
-      {/* <div className='comment__edit'>edit</div> */}
     </div>
   );
 };

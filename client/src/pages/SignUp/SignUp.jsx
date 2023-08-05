@@ -1,7 +1,5 @@
 import './SignUp.scss';
 import { Form, Link, redirect } from 'react-router-dom';
-import { BsFillPersonFill } from 'react-icons/bs';
-import { RiLockPasswordFill } from 'react-icons/ri';
 import InputBar from '../../components/InputBar/InputBar';
 import { store } from '../../store';
 import {

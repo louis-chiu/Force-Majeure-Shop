@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import CartItem from '../CartItem/CartItem';
 import './CartList.scss';
 
-const CartList = ({ cart }) => {
+const CartList = () => {
   const { cart: cartList } = useSelector((store) => store.cart);
   return (
     <div className='cart-table'>

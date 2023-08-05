@@ -16,10 +16,10 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
   const credentials = Object.fromEntries(formData);
   const promise = store.dispatch(authApi.endpoints.login.initiate(credentials));
+
   try {
     const credentials = await promise.unwrap();
     store.dispatch(login(credentials));
-
     return redirect('/member');
   } catch (error) {
     return redirect('/login');

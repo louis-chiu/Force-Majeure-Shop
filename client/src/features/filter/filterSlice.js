@@ -27,5 +27,5 @@ const filterSlice = createSlice({
   },
 });
 
-export const { setKeyword, setSortBy } = filterSlice.actions;
+export const { setKeyword, setSortBy, resetFilter } = filterSlice.actions;
 export default filterSlice.reducer;

@@ -1,4 +1,4 @@
-footer {
+.footer {
   max-width: 1730px;
   width: 90%;
 
@@ -37,7 +37,7 @@ footer {
 }
 
 @media (max-width: 1120px) {
-  footer {
+  .footer {
     .links {
       width: 25%;
       align-items: center;
@@ -64,7 +64,7 @@ footer {
   }
 }
 @media (max-width: 880px) {
-  footer {
+  .footer {
     width: 100%;
     gap: 24px;
     .links {

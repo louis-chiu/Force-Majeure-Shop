@@ -18,7 +18,6 @@ const Slider = ({ imageList, name }) => {
   const sliderRef = useRef();
 
   useEffect(() => {
-    // Check isSlider using observer to observe the height of slider
     const observer = new ResizeObserver((entries) => {
       if (sliderRef.current.offsetHeight > 200) {
         dispatch(setIsSlider({ isSlider: true }));

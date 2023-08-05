@@ -9,6 +9,7 @@ const CartItem = ({ product }) => {
   const dispatch = useDispatch();
   const btnRef = useRef();
   const [isCircle, setIsCircle] = useState(false);
+
   useEffect(() => {
     const handleResize = (entries) => {
       for (const entry of entries) {
@@ -20,7 +21,6 @@ const CartItem = ({ product }) => {
         }
       }
     };
-
     const resizeObserver = new ResizeObserver(handleResize);
     if (btnRef.current) {
       resizeObserver.observe(btnRef.current);
@@ -30,6 +30,7 @@ const CartItem = ({ product }) => {
       resizeObserver.disconnect();
     };
   }, []);
+
   return (
     <div className='cart-item'>
       <div className='cart-item__image-container'>

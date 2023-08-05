@@ -1,6 +1,6 @@
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import './AmountSelector.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   addAmount as addProductAmount,
   subtractAmount as subtractProductAmount,

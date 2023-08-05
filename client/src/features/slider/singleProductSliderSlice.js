@@ -11,11 +11,11 @@ const singleProductSliderSlice = createSlice({
   name: 'singleProductSlider',
   initialState,
   reducers: {
-    slideToLeft: (state, action) => {
+    slideToLeft: (state) => {
       state.translate =
         (state.translate + 1 - state.imageList.length) % state.imageList.length;
     },
-    slideToRight: (state, action) => {
+    slideToRight: (state) => {
       state.translate = (state.translate - 1) % state.imageList.length;
     },
     resetTranslate: (state) => {
