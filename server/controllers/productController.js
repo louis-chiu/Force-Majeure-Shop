@@ -1,4 +1,4 @@
-const {pool} = require('../db/connect');
+const { pool } = require('../db/connect');
 // 色彩與 HEX 色碼對照表
 const colorMap = [
   { name: 'Black', hex: '#000000' },
@@ -127,7 +127,6 @@ const findProductById = async (req, res) => {
     }));
 
     productDetails.comments = comments;
-    console.log(comments[0].orderItem);
     res.json(productDetails);
   } catch (error) {
     console.error('Error executing SQL query', error);
@@ -139,8 +138,8 @@ const findAllProduct = async (req, res) => {
   try {
     const client = await pool.connect();
 
-    const { keyword } = req.query; // 從 Query String 取得關鍵字
-
+    const { keyword, sortBy, ascOrDesc } = req.query; // 從 Query String 取得關鍵字
+    // console.log(req.url);
     let query = `
     SELECT
       p.ProductID AS id,
@@ -175,6 +174,12 @@ const findAllProduct = async (req, res) => {
       query += `WHERE p.Name ILIKE $1`; // 使用參數化查詢
       params.push(`%${keyword}%`); // 將參數值加入參數數組
     }
+    // console.log(sortBy);
+    if (sortBy) {
+      query += `ORDER BY p.${sortBy}`;
+      query += ` ${ascOrDesc}`;
+    }
+    // console.log(query);
 
     const result = await client.query(query, params);
     client.release();
