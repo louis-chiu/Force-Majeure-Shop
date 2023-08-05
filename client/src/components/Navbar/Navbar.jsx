@@ -5,11 +5,10 @@ import { useRef, useState } from 'react';
 import './Navbar.scss';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../features/user/userSlice';
+import { logout } from '../../features/auth/authSlice';
 const Navbar = () => {
   const dispatch = useDispatch();
-  const { isLogin } = useSelector((state) => state.user);
-  console.log(isLogin);
+  const { isLogin } = useSelector((state) => state.auth);
   const linksRef = useRef(null);
   const [showNavLinks, setShowNavLinks] = useState(false);
   const showStyle = {
@@ -63,6 +62,17 @@ const Navbar = () => {
               Cart
             </Link>
           </li>
+          {isLogin ? (
+            <li className='navbar__item'>
+              <Link
+                className='navbar__button'
+                to='/member'
+                onClick={toggleNavLinks}
+              >
+                Member
+              </Link>
+            </li>
+          ) : undefined}
           <li className='navbar__item'>
             {isLogin ? (
               <button
