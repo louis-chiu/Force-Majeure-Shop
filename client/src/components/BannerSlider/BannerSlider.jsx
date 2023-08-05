@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { bannerUrlList } from '../../data';
-import BannerItem from './BannerItem';
+import BannerItem from '../BannerItem/BannerItem';
 import './BannerSlider.scss';
 import { BiSolidLeftArrow, BiSolidRightArrow } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
