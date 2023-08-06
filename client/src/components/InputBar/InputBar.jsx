@@ -24,7 +24,7 @@ const InputBar = ({ type, name, children, value }) => {
         type={type}
         name={name}
         required={requiredList.includes(type)}
-        value={value}
+        defaultValue={value}
       />
     </div>
   );

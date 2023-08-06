@@ -47,9 +47,9 @@ export const socialMedia = [
 ];
 
 export const bannerUrlList = [
-  '/assets/banner1.jpg',
-  '/assets/banner2.jpg',
-  '/assets/banner3.jpg',
+  '/src/assets/banner1.jpg',
+  '/src/assets/banner2.jpg',
+  '/src/assets/banner3.jpg',
 ];
 
 export const productList = [{}];
