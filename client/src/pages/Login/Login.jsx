@@ -41,12 +41,14 @@ const Login = () => {
         <InputBar
           type='email'
           name='email'
+          value='user2@example.com'
         >
           <BsFillPersonFill />
         </InputBar>
         <InputBar
           type='password'
           name='password'
+          value='password2'
         >
           <RiLockPasswordFill />
         </InputBar>

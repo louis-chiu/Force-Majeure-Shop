@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import './InputBar.scss';
-const InputBar = ({ type, name, children }) => {
+const InputBar = ({ type, name, children, value }) => {
   const { pathname } = useLocation();
   const requiredList = ['email', 'password'];
   const labelStyle =
@@ -24,6 +24,7 @@ const InputBar = ({ type, name, children }) => {
         type={type}
         name={name}
         required={requiredList.includes(type)}
+        value={value}
       />
     </div>
   );
