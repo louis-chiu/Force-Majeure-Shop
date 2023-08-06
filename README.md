@@ -7,6 +7,10 @@ CSS 部份不使用框架、套件來做切版練習。
 並未使用 ORM 開發，
 金流使用 Line Pay 測試帳號開發。
 
+### Live Demo
+
+https://force-majeure.zeabur.app/
+
 ## 功能
 
 - 購物車功能
